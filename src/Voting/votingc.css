@@ -1,0 +1,16 @@
+.product-image{
+    min-height: auto;
+    min-width: auto;
+    padding: 10px;
+}
+
+.pro{
+    color: black;
+    transition-delay: 2ms;
+}
+
+.pro:hover{
+    color: red;
+    cursor: pointer;
+    transform: scale(107%,107%);
+}
