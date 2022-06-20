@@ -1,7 +1,8 @@
-import {clusterApiUrl, Connection, PublicKey} from "@solana/web3.js";
 
-function Sol_balance() {
-    (async() => {
+const GetResult = async() => {
+
+        window.Buffer = window.Buffer || require('buffer').Buffer;
+        const {clusterApiUrl, Connection, PublicKey} = require("@solana/web3.js");
         console.log(clusterApiUrl('devnet'));
         const connection = new Connection(
             clusterApiUrl('devnet'),
@@ -31,8 +32,15 @@ function Sol_balance() {
         let ntk_Balance = await connection.getBalance(ntk_1) / 1000000000;
         console.log(ntk_Balance);
 
-        var votes = [admk_Balance, dmk_Balance, cpt_Balance, mnm_Balance, pmk_Balance, ntk_Balance];
-        localStorage.setItem('votes', votes);
-    })();
-
+        const data = [
+          { total_voter: 'ADMK', vote_count: admk_Balance },
+          { total_voter: 'DMK', vote_count: dmk_Balance },
+          { total_voter: 'PMK', vote_count: pmk_Balance },
+          { total_voter: 'CPT', vote_count: cpt_Balance },
+          { total_voter: 'MNM', vote_count: mnm_Balance },
+          { total_voter: 'NTK', vote_count: ntk_Balance },
+        ];
+        sessionStorage.setItem('votes', JSON.stringify(data));
 }
+
+export default GetResult;

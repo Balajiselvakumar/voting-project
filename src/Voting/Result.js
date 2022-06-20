@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
-import Sol_balance from '../Service/Chartresult'
 
 
 import {
@@ -12,29 +11,35 @@ import {
   Tooltip,
 } from '@devexpress/dx-react-chart-material-ui';
 import { EventTracker } from '@devexpress/dx-react-chart';
+import GetResult from "../Service/Chartresult";
+import Typography from "@mui/material/Typography";
 
-const data = [
-  { total_voter: 'ADMK', vote_count: 2.525 },
-  { total_voter: 'DMK', vote_count: 3.018 },
-  { total_voter: 'PMK', vote_count: 3.682 },
-  { total_voter: 'CPT', vote_count: 4.440 },
-  { total_voter: 'MNM', vote_count: 5.310 },
-  { total_voter: 'NTK', population: 6.127 },
-];
+const data = [];
 
-export default class Demo extends React.PureComponent {
+export default class Result extends React.PureComponent {
   constructor(props) {
     super(props);
-
+    this.handleLoad = this.handleLoad.bind(this);
     this.state = {
       data,
     };
   }
 
+  componentDidMount() {
+      GetResult().then(r => {
+          this.handleLoad()
+      });
+ }
+
+ handleLoad(){
+      const votes = sessionStorage.getItem('votes');
+      const data = JSON.parse(votes);
+      this.setState({data});
+ }
+
   render() {
     const { data: chartData } = this.state;
-
-
+    console.log(this.state);
     return (
       <Paper>
         <Chart
@@ -47,9 +52,13 @@ export default class Demo extends React.PureComponent {
             valueField="vote_count"
             argumentField="total_voter"
           />
-          <Title
-            text="VOTING RESULT"
-          />
+          <Typography
+         variant="h2"
+         align="center"
+
+         >
+            ELECTION VOTE RESULT
+         </Typography>
           <EventTracker />
           <Tooltip />
         </Chart>

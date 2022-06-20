@@ -23,7 +23,7 @@ function Loading() {
          align="center"
 
          >
-            VALIDATING YOU VOTE ...
+            VALIDATING YOUR VOTE ...
          </Typography>
       </div>
    );

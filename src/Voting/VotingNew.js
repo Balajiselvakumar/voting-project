@@ -15,6 +15,9 @@ export default function votingepages(props){
                 props.setRedirect(true);
                 props.setLoading(false);
                 props.setIsVoted(true);
+                setTimeout(function() {
+                    window.location.replace('/result');
+                }, 3000);
             });
 
         }else{
